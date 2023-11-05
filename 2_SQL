@@ -1,0 +1,107 @@
+-- 1
+CREATE TABLE Department (
+   dptno INT primary key,
+   dptname VARCHAR(20),
+   location VARCHAR(20)
+);
+
+-- 2
+INSERT INTO Department VALUES (10,'Accounting', 'Mumbai');
+INSERT INTO Department VALUES (20,'Research', 'Pune');
+INSERT INTO Department VALUES (30,'Sales', 'Nashik');
+INSERT INTO Department VALUES (40,'Operations', 'Nagpur');
+
+-- 3
+SELECT * FROM Department;
+
+-- 4
+CREATE TABLE employeeTwo (
+   empno INT primary key,
+   empname VARCHAR(30),
+   job VARCHAR(30),
+   mgr INT,
+   joined_date VARCHAR(30),
+   salary INT,
+   commission INT,
+   dptno INT ,
+   address VARCHAR(30),
+   foreign key (dptno) references testTable (dptno)
+);
+-- 4
+INSERT ALL
+INTO employeeTwo VALUES (1001,'Nilesh Joshi','Clerk',1005,'17-12-95',2800,600,20,'Nashik')
+INTO employeeTwo VALUES (1002,'Avinash Paw','Sales Man',1003,'20-02-96',5000,1200,30,'Nagpur')
+INTO employeeTwo VALUES (1003,'Amit kumar','Manager',1004,'02-04-86',2000,NULL,30,'Pune')
+INTO employeeTwo VALUES (1004,'Nitin Kulkarni','President',NULL,'19-04-86',50000,NULL,10,'Mumbai')
+INTO employeeTwo VALUES (1005,'Niraj Sharma','Analyst',1003,'03-12-98',12000,NULL,20,'Satara')
+INTO employeeTwo VALUES (1006,'Pushkar deshpande','Sales Man',1003,'01-09-96',6500,1500,30,'Pune')
+INTO employeeTwo VALUES (1007,'Sumit Patil','Manager',1004,'01-05-91',25000,NULL,20,'Mumbai')
+INTO employeeTwo VALUES (1008,'Ravi Sawant','Analyst',1007,'17-11-95',10000,NULL,NULL,'Amaravati')
+SELECT * FROM dual;
+
+SELECT * FROM employeeTwo;
+
+-- 5
+SELECT empname, salary FROM employeeTwo
+WHERE salary NOT BETWEEN 5000 AND 10000;
+
+-- 6
+SELECT empname FROM employeeTwo
+WHERE empname LIKE 'A%';
+
+-- 7
+SELECT empname FROM employeeTwo
+WHERE empname LIKE '_i%';
+
+-- 8
+SELECT empno, empname FROM employeeTwo
+WHERE commission IS NOT NULL;
+
+-- 9
+SELECT * FROM employeeTwo
+ORDER BY empno DESC;
+-- if you want to display in ASCENDING then use ASC
+
+-- 10
+SELECT job,
+   MIN(salary) AS min_salary,
+   MAX(salary) AS max_salary,
+   SUM(salary) AS total_salary,
+   AVG(salary) AS avg_salary
+FROM employeeTwo
+GROUP BY job;
+
+-- 11
+SELECT dptno, COUNT(*) AS num_employees
+FROM employeeTwo
+GROUP BY dptno;
+
+-- 12
+SELECT empno, empname FROM employeeTwo
+ORDER BY salary ASC;
+
+-- 13
+SELECT dptno, MAX(salary) AS max_salary
+FROM employeeTwo
+GROUP BY dptno
+HAVING MAX(salary) > 5000;
+
+
+-- 16
+SELECT dptno, COUNT(*) as number_of_employees
+FROM employeeTwo
+WHERE dptno = 20 AND commission IS NULL
+GROUP BY dptno;
+
+-- 17
+SELECT * FROM employeeTwo;
+
+UPDATE employeeTwo
+SET address = 'Pune'
+WHERE empno = 1008;
+
+SELECT * FROM employeeTwo;
+
+-- 18
+DELETE FROM employeeTwo
+WHERE commission < 800;
