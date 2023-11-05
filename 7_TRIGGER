@@ -1,0 +1,64 @@
+CREATE TABLE library (
+   book_id INT primary key,
+   bookname VARCHAR(20),
+   price INT
+);
+
+CREATE TABLE audit_row (
+   book_id INT primary key,
+   bookname VARCHAR(20),
+   price INT,
+   audit_change VARCHAR(30),
+   update_time DATE
+);
+
+CREATE TABLE lib_audit_stamp (
+   audit_history_id INT primary key,
+   audit_change VARCHAR(30),
+   update_time DATE
+);
+
+INSERT ALL
+INTO library VALUES (1,'A',50)
+INTO library VALUES (2,'B',60)
+INTO library VALUES (3,'C',70)
+INTO library VALUES (4,'D',80)
+INTO library VALUES (5,'E',90)
+SELECT * FROM dual;
+
+CREATE SEQUENCE audit_history_id_seq;
+
+
+CREATE OR REPLACE TRIGGER library_trigger
+AFTER UPDATE OR DELETE ON library
+FOR EACH ROW
+DECLARE
+    audit_change VARCHAR2(30);
+BEGIN
+    IF DELETING THEN
+        audit_change := 'DELETE';
+    ELSIF UPDATING THEN
+        audit_change := 'UPDATE';
+    END IF;
+
+    INSERT INTO audit_row (book_id, bookname, price, audit_change, update_time)
+    VALUES (:OLD.book_id, :OLD.bookname, :OLD.price, audit_change, SYSTIMESTAMP);
+
+    INSERT INTO lib_audit_stamp (audit_history_id, audit_change, update_time)
+    VALUES (audit_history_id_seq.NEXTVAL, audit_change, SYSTIMESTAMP);
+END;
+/
+UPDATE library
+SET price = 56
+WHERE book_id = 2;
+
+
+-- View updated/deleted records and audit information
+SELECT * FROM audit_row;
+
+-- View audit history including username and timestamp
+SELECT * FROM lib_audit_stamp;
+
+
+drop table audit_row
+drop table lib_audit_stamp
