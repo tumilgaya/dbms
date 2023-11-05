@@ -1,0 +1,59 @@
+> use pract
+
+
+> db.pract.insertOne({Name:"Shivam",Age:24,Salary:30000});  //1
+
+> db.pract.insertMany(					
+	[
+	{Name:"Shantanu",Age:23,Salary:40000},
+	{Name:"Kartik",Age:28,Salary:50000},
+	{Name:"Shiftain",Age:33,Salary:90000},
+	{Name:"Rushikesh",Age:23,Salary:40000}
+	]);
+> db.prcat.insertOne({Name:"Sshdisvam",Age:2214,Salary:3022000});
+
+> db.pract.find().pretty();				//2
+
+
+> db.pract.updateOne({Name:"Shiftain"},{$set:{Salary:80000}});	//3
+
+> db.pract.updateMany({},{$set:{Gender:"Male"}});
+
+> db.pract.deleteOne({Name:"Sshdisvam"})		//4
+
+
+> db.pract.save({Name:"Huzaifa",Age:33,Salary:20000,Gender:"Male"});	//5
+
+> db.pract.find({$and:[{Age:23},{Salary:40000}]}).pretty();		//6
+
+> db.pract.find({$or:[{Salary:{$gt:30000}},{Age:{$gte:25}}]}).pretty();
+
+> db.pract.createIndex({Age:1});					//7
+> db.pract.createIndex({Age: 1, Salary: -1});
+
+
+
+db.pract.getIndexes();							//8
+
+//9
+> db.pract.dropIndex("Age_1_Salary_-1");  //can be diff use > db.pract.getIndexes(); to get exact name
+
+//10
+> db.pract.aggregate({$sort:{Age:1}}).pretty();
+
+//11
+> db.pract.aggregate({$group:{_id:"$Name",Salary:{$push:"$Salary"}}});
+> db.pract.aggregate({$group:{_id:"$Age",Salary:{$sum:"$Salary"}}})
+
+//12
+> db.pract.aggregate({$match:{Age:33}}).pretty();
+
+//13
+> db.pract.aggregate({$project:{_id:0,Age:1,Salary:1}});
+
+
+
+
+
+
+

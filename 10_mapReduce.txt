@@ -1,0 +1,26 @@
+> db.pract.insertOne({Name:"Shivam",Age:24,Salary:30000});
+
+> db.pract.insertMany(
+	[
+	{Name:"Shantanu",Age:23,Salary:40000},
+	{Name:"Kartik",Age:28,Salary:50000},
+	{Name:"Shiftain",Age:33,Salary:90000},
+	{Name:"Rushikesh",Age:23,Salary:40000}
+	]);
+> db.pract.find().pretty();
+
+> var mapFun = function(){
+	emit("Salary",this.Salary)}
+
+//for sum
+> var reduFun = function(key,val){
+	return Array.sum(val);}
+
+//for Average
+> var reduFun = function(key,val){
+	return Array.avg(val);}
+
+>db.pract.mapReduce(mapFun, reduFun,
+	{out:"result"}
+	);
+> db.result.find()
