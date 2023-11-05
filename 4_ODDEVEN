@@ -1,0 +1,42 @@
+DECLARE
+    num NUMBER := 10; -- You can change the number here
+BEGIN
+    IF MOD(num, 2) = 0 THEN
+        DBMS_OUTPUT.PUT_LINE('The number is even.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('The number is odd.');
+    END IF;
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred.'||SQLERRM);
+END;
+
+CREATE TABLE Employee (
+    Empid INT PRIMARY KEY,
+    Ename VARCHAR(50),
+    Salary NUMBER,
+    Designation VARCHAR(50)
+);
+
+drop table Employee
+
+INSERT INTO Employee (Empid, Ename, Salary, Designation)
+VALUES (101, 'John Doe', 50000, 'Manager');
+INSERT INTO Employee (Empid, Ename, Salary, Designation)
+VALUES (102, 'Jane Smith', 60000, 'Developer');
+
+DECLARE
+    v_empid NUMBER := 102; -- Specify the employee ID you want to update
+    v_percentage NUMBER := 1.08; -- 8% increase
+BEGIN
+    UPDATE Employee
+    SET Salary = Salary * v_percentage
+    WHERE Empid = v_empid;
+
+EXCEPTION
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+END;
+
+
+select * from Employee 
