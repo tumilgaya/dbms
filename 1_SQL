@@ -1,0 +1,87 @@
+-- 1
+CREATE TABLE deptTable (
+   dptno INT primary key,
+   dptname VARCHAR(20),
+   location VARCHAR(20)
+);
+
+-- 2
+INSERT INTO deptTable VALUES (10,'Accounting', 'Mumbai');
+INSERT INTO deptTable VALUES (20,'Research', 'Pune');
+INSERT INTO deptTable VALUES (30,'Sales', 'Nashik');
+INSERT INTO deptTable VALUES (40,'Operations', 'Nagpur');
+
+-- 3
+SELECT * FROM deptTable;
+
+-- 4
+CREATE TABLE employee (
+   empno INT primary key,
+   empname VARCHAR(30),
+   job VARCHAR(30),
+   mgr INT,
+   joined_date VARCHAR(30),
+   salary INT,
+   commission INT,
+   dptno INT ,
+   address VARCHAR(30),
+   foreign key (dptno) references testTable (dptno)
+);
+-- 4
+
+INSERT INTO employee VALUES (1001,'Nilesh Joshi','Clerk',105,'17-12-95',2800,600,20,'Nashik');
+INSERT INTO employee VALUES (1002,'Avinash Paw','Sales Man',103,'20-02-96',5000,1200,30,'Nagpur');
+INSERT INTO employee VALUES (1003,'Amit kumar','Manager',104,'02-04-86',2000,NULL,30,'Pune');
+INSERT INTO employee VALUES (1004,'Nitin Kulkarni','President',NULL,'19-04-86',50000,NULL,10,'Mumbai');
+INSERT INTO employee VALUES (1005,'Niraj Sharma','Analyst',103,'03-12-98',12000,NULL,20,'Satara');
+INSERT INTO employee VALUES (1006,'Pushkar deshpande','Sales Man',103,'01-09-96',6500,1500,30,'Pune');
+INSERT INTO employee VALUES (1007,'Sumit Patil','Manager',104,'01-05-91',25000,NULL,20,'Mumbai');
+INSERT INTO employee VALUES (1008,'Ravi Sawant','Analyst',107,'17-11-95',10000,NULL,NULL,'Amaravati');
+
+-- 5
+SELECT * FROM employee;
+
+-- 6
+SELECT DISTINCT (JOB) FROM employee;
+
+-- 7
+UPDATE testTable
+SET location = 'Bangalore'
+WHERE dptno = 40;
+
+SELECT * FROM testTable;
+
+-- 8
+UPDATE employee
+SET empname = 'Nikhil Gosavi'
+WHERE empno = 1003
+
+SELECT * FROM employee;
+
+-- 9
+DELETE FROM employee
+WHERE empname = 'Pushkar deshpande';
+
+SELECT * FROM employee;
+
+-- 11
+CREATE INDEX ione ON employee (empname);
+
+CREATE VIEW viewone as SELECT empno, empname, job FROM employee ;
+SELECT * FROM viewone;
+
+CREATE SEQUENCE sone START WITH 1 INCREMENT BY 1 NOCACHE NOCYCLE;
+SELECT * FROM sone;
+
+-- 10 and 12
+CREATE TABLE deptTemp as SELECT * FROM testTable WHERE 1 = 1;
+-- or if you want to copy the structure then use condition WHERE 1 = 0
+SELECT * FROM deptTemp;
+
+-- 13
+SELECT empname, salary FROM employee
+WHERE salary >= 5000 AND salary <= 20000;
+
+-- 14
+SELECT empname, job FROM employee
+WHERE job != 'Sales Man';
