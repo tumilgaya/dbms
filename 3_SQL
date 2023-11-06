@@ -1,0 +1,140 @@
+-- Create the Employee table
+CREATE TABLE Employee (
+    Emp_ID INT PRIMARY KEY,
+    First_Name VARCHAR(50),
+    Last_Name VARCHAR(50),
+    Salary INT,
+    Designation VARCHAR(50),
+    Dept_No INT
+);
+
+drop table Department;
+drop table employee
+--
+ Create the Department table
+CREATE TABLE Department (
+    Dept_No INT PRIMARY KEY,
+    Dept_Name VARCHAR(50),
+    Location VARCHAR(50)
+);
+
+-- Insert data into the Employee table
+INSERT all 
+into Employee values (161, 'Jane', 'Smith', 45000, 'Supervisor', 20)
+into Employee values (163, 'Emily', 'Wilson', 42000, 'Analyst', 20)
+into Employee values (167, 'Olivia', 'Martinez', 55000, 'Manager', 10)
+into Employee values (168, 'Lucas', 'Garcia', 49000, 'Analyst', 20)
+into Employee values (169, 'Ava', 'Harris', 52000, 'Salesman', 30)
+SELECT * from dual
+
+-- Insert data into the Department table
+INSERT all  
+
+into Department   VALUES    (20, 'Sales', 'Los Angeles')
+into Department   VALUES    (30, 'Operations', 'Chicago')
+into Department   VALUES    (10, 'HR', 'New York')
+select *from dual
+
+
+select First_name,Last_name from Employee where Salary>(select Salary from Employee where Emp_ID=163 )
+
+select First_name,Last_name from Employee where Designation=(select Designation from Employee where Emp_ID=169 )
+
+select First_name,Last_name from Employee where Salary>(select avg(Salary) from Employee)
+
+select min(Salary) as minimum_salary from Employee 
+
+select max(Salary)as maximum_salary from Employee 
+
+create view  view1 as select First_name,Last_name from Employee
+create view  view2 as select Dept_No,location  from Department
+select*from view1
+select*from view2
+
+create sequence seq start with 1 increment by 1
+
+
+create Index idx on Employee(First_name)
+
+
+
+
+
+
+
+
+--part2
+
+
+-- Create Salesman table
+CREATE TABLE Salesman (
+  salesman_id NUMBER(5) PRIMARY KEY,
+  name VARCHAR2(50),
+  city VARCHAR2(50),
+  commission NUMBER(10, 2)
+);
+
+-- Create Customer table
+CREATE TABLE Customer (
+  customer_id NUMBER(5) PRIMARY KEY,
+  cust_name VARCHAR2(50),
+  city VARCHAR2(50),
+  grade NUMBER(2),
+  salesman_id NUMBER(5),
+  FOREIGN KEY (salesman_id) REFERENCES Salesman(salesman_id)
+);
+
+-- Insert data into Salesman table using INSERT ALL
+INSERT ALL
+  INTO Salesman VALUES (1, 'John Doe', 'New York', 0.18)
+  INTO Salesman VALUES (2, 'Jane Smith', 'Los Angeles', 0.12)
+  INTO Salesman VALUES (3, 'Bob Johnson', 'Chicago', 0.08)
+SELECT * FROM dual;
+
+-- Insert data into Customer table using INSERT ALL
+INSERT ALL
+  INTO Customer VALUES (101, 'Customer A', 'New York', 1, 1)
+  INTO Customer VALUES (102, 'Customer B', 'Los Angeles', 2, 2)
+  INTO Customer VALUES (103, 'Customer C', 'Chicago', 1, 3)
+SELECT * FROM dual;
+
+SELECT Salesman.name, Customer.cust_name, Salesman.city
+FROM Salesman
+INNER JOIN Customer ON Salesman.city = Customer.city;
+
+select Salesman.name,Customer.cust_name,Customer.city,Salesman.commission
+from Customer
+join Salesman on Salesman.salesman_id=Customer.salesman_id
+where Salesman.commission>0.12
+
+select Customer.cust_name,Customer.city,Customer.grade,Salesman.name,Salesman.city
+from Customer join Salesman on Customer.salesman_id = Salesman.salesman_id
+order by customer_id asc;
+
+SELECT Salesman.salesman_id, Salesman.name
+FROM Salesman 
+LEFT JOIN Customer ON Salesman.salesman_id = Customer.salesman_id
+WHERE Customer.salesman_id IS NOT NULL
+OR Customer.salesman_id IS NULL
+ORDER BY Salesman.salesman_id ASC;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+drop table Salesman
+drop table Customer
