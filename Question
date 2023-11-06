@@ -1,0 +1,27 @@
+Q-7
+Write a database trigger on Library table. The System should keep track of the records that
+are being updated or deleted. The old value of updated or deleted records should be added in
+Library_ Audit table. Frame the problem statement for writing Database Triggers of all types,
+in-line with above statement. The problem statement should clearly state the requirements.
+
+Q-8
+Implement MongoDB Queries using CRUD operations. (Use CRUD operations, SAVE
+method, logical operators)
+
+Q-9
+Implement queries for aggregation and indexing with suitable example using MongoDB.
+
+Q-10
+Implement Map reduces operation with suitable example using MongoDB.
+
+Q-11
+Design and Implement any 10 query using MongoDB
+
+Q-12
+Write a program to implement MySQL/MongoDB database connectivity with PHP/
+python/Java Implement Database navigation operations (add, delete, edit etc.).
+
+Q-16
+Write PL/SQL code to calculate the area of circle for a value of radius varying from 5 to
+9. Store the radius and corresponding values of calculated area in empty table named
+areas, consisting of two columns, radius and area.
