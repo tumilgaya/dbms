@@ -1,11 +1,11 @@
-> db.pract.insertOne({Name:"Shivam",Age:24,Salary:30000});
+> db.pract.insertOne({Name:"value5",Age:24,Salary:30000});
 
 > db.pract.insertMany(
 	[
-	{Name:"Shantanu",Age:23,Salary:40000},
-	{Name:"Kartik",Age:28,Salary:50000},
-	{Name:"Shiftain",Age:33,Salary:90000},
-	{Name:"Rushikesh",Age:23,Salary:40000}
+	{Name:"value1",Age:23,Salary:40000},
+	{Name:"value2",Age:28,Salary:50000},
+	{Name:"value3",Age:33,Salary:90000},
+	{Name:"value4",Age:23,Salary:40000}
 	]);
 > db.pract.find().pretty();
 
